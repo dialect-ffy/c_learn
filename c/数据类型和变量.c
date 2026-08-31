@@ -109,12 +109,17 @@
 // printf("%s says it is %d o'clock\n", "lisi", 21);
 // return 0;
 // }
-#include <stdio.h>
+
+// int main()
+// {
+// printf("%5d\n", 123); // 输出为 " 123"  默认右对齐，宽度为5
+// printf("%-5d\n", 123); // 输出为 "123  "
+// printf("%12f\n", 3.14); // 输出为 "      3.140000"  默认右对齐，宽度为12
+// printf("%+d\n", 123); // 输出为 "+123"
+// return 0;
+// }
 int main()
 {
-printf("%5d\n", 123); // 输出为 " 123"  默认右对齐，宽度为5
-printf("%-5d\n", 123); // 输出为 "123  "
-printf("%12f\n", 3.14); // 输出为 "      3.140000"  默认右对齐，宽度为12
-printf("%+d\n", 123); // 输出为 "+123"
+printf("Number is %6.2f\n", 0.5);
 return 0;
 }
