@@ -118,8 +118,27 @@
 // printf("%+d\n", 123); // 输出为 "+123"
 // return 0;
 // }
+// int main()
+// {
+// printf("Number is %6.2f\n", 0.5);
+// return 0;
+// }
+// int main()
+// {
+// printf("%*.*f\n", 6, 2, 0.5);
+// return 0;
+// }
+//// 等同于printf("%6.2f\n", 0.5);
+// int main()
+// {
+// printf("%.5s\n", "hello world"); // %.5s表示输出字符串的前5个字符，结果为"hello"
+// return 0;
+// }
 int main()
 {
-printf("Number is %6.2f\n", 0.5);
-return 0;
+    int a = 0;
+    printf("请输入成绩：");
+    scanf("%d",&a);
+    printf("成绩是：%d\n",a);
+    return 0;
 }
