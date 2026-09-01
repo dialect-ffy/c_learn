@@ -79,7 +79,7 @@
 //    printf("%d\n",b);
 //    printf("%d\n",a);
 //    return 0;
-
+//
 // }
 // int main()
 // {
@@ -161,11 +161,11 @@
 //     scanf("%10s", name);
 //     return 0;
 // } // 读取一个字符串，最多读取10个字符，并将其存储在name数组中。
-int main()
-{
-    int year;
-    int month;
-    int day;
-    scanf("%d%*c%d%*c%d", &year, &month, &day); // %*c表示读取一个字符但不存储它，通常用于跳过分隔符
-    printf("year = %d, month = %d, day = %d\n", year, month, day);
-}
+// int main()
+// {
+//     int year;
+//     int month;
+//     int day;
+//     scanf("%d%*c%d%*c%d", &year, &month, &day); // %*c表示读取一个字符但不存储它，通常用于跳过分隔符
+//     printf("year = %d, month = %d, day = %d\n", year, month, day);
+// }
