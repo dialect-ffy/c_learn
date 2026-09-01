@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+
 //int main()
 // {
 // int a = 10;
@@ -134,11 +135,37 @@
 // printf("%.5s\n", "hello world"); // %.5s表示输出字符串的前5个字符，结果为"hello"
 // return 0;
 // }
+// int main()
+// {
+//     int a = 0;
+//     printf("请输入成绩：");
+//     scanf("%d",&a);
+//     printf("成绩是：%d\n",a);
+//     return 0;
+// }
+//scanf("%d%d%f%f",&a,&b,&c,&d); // 读取两个整数和两个浮点数 
+//scanf 会读到第一个不符合格式的字符就停止读取，后续的输入会留在输入缓冲区中，等待下一次读取。
+// int main()
+// {
+//     int x;
+//     float y;
+//     scanf("%d%f", &x, &y);
+//     printf("x = %d, y = %f\n", x, y);
+//     return 0;
+// }
+// int r = scanf("%d %d %f", &a, &b, &f); // scanf返回成功读取的输入项的数量，如果输入不符合格式，返回值可能小于预期的数量，甚至为0。
+// int main()
+// {
+//     char name[11];
+
+//     scanf("%10s", name);
+//     return 0;
+// } // 读取一个字符串，最多读取10个字符，并将其存储在name数组中。
 int main()
 {
-    int a = 0;
-    printf("请输入成绩：");
-    scanf("%d",&a);
-    printf("成绩是：%d\n",a);
-    return 0;
+    int year;
+    int month;
+    int day;
+    scanf("%d%*c%d%*c%d", &year, &month, &day); // %*c表示读取一个字符但不存储它，通常用于跳过分隔符
+    printf("year = %d, month = %d, day = %d\n", year, month, day);
 }
