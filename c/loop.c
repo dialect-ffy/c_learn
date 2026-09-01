@@ -286,69 +286,69 @@
 // 设置随机数范围
 // rand() % (max - min + 1) + min; // 生成 [min, max] 范围内的随机数
 //取余的范围是0 ~ n-1
-void menu()
-{
-    printf("******************\n");
-    printf("**** 1.play ****\n");
-    printf("**** 0.exit ****\n");
-    printf("******************\n");
-}
-void game()
-{
-    int ret = rand() % 100 + 1;// 生成 [1, 100] 范围内的随机数
-    int guess = 0;
-    int count = 5;
+// void menu()
+// {
+//     printf("******************\n");
+//     printf("**** 1.play ****\n");
+//     printf("**** 0.exit ****\n");
+//     printf("******************\n");
+// }
+// void game()
+// {
+//     int ret = rand() % 100 + 1;// 生成 [1, 100] 范围内的随机数
+//     int guess = 0;
+//     int count = 5;
     
-    while(count)
-    {
-        printf("you have %d chances, please input your guess:>", count);
-        scanf("%d",&guess);
-        if (guess > ret)
-        {
-            printf("too big\n");
+//     while(count)
+//     {
+//         printf("you have %d chances, please input your guess:>", count);
+//         scanf("%d",&guess);
+//         if (guess > ret)
+//         {
+//             printf("too big\n");
             
-        }
-        else if (guess < ret)
-        {
-            printf("too small\n");
+//         }
+//         else if (guess < ret)
+//         {
+//             printf("too small\n");
             
-        }
-        else
-        {
-            printf("you win\n");
-            break;
-        }
-        count--;
-    }
-        if (count == 0)
-        {
-            printf("you lose, the number is %d\n", ret);
-        }
+//         }
+//         else
+//         {
+//             printf("you win\n");
+//             break;
+//         }
+//         count--;
+//     }
+//         if (count == 0)
+//         {
+//             printf("you lose, the number is %d\n", ret);
+//         }
 
-}
-int main()
-{
-    int input = 0;
-    srand((unsigned int)time(NULL));//种子
-    do{
-    menu();
-    printf("please input your choice:>");
-    scanf("%d",&input);
-    switch(input)
-    {
-        case 1:
-            game();
-            break;
-        case 0:
-            printf("game over\n");
-            break;
-        default:
-            printf("error\n");
-            break;
+// }
+// int main()
+// {
+//     int input = 0;
+//     srand((unsigned int)time(NULL));//种子
+//     do{
+//     menu();
+//     printf("please input your choice:>");
+//     scanf("%d",&input);
+//     switch(input)
+//     {
+//         case 1:
+//             game();
+//             break;
+//         case 0:
+//             printf("game over\n");
+//             break;
+//         default:
+//             printf("error\n");
+//             break;
             
-    }
+//     }
 
-    }while(input);
-    return 0;
+//     }while(input);
+//     return 0;
 
-}
+// }
