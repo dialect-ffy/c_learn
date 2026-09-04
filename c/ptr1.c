@@ -184,7 +184,7 @@
 //二维数组传参的本质
 //二维数组的每个元素是一维数组 传的是首元素的地址 即一维数组的地址
 // void test(int a[3][5], int r, int c)
-// {         //int[5]*  数组指针
+// {         //int(*p)[5]  数组指针
 //     int i = 0;
 //     int j = 0;
 //     for(i=0; i<r; i++)
@@ -269,3 +269,64 @@
 // 类比指针数组  int(*)() parr[3]
 // 但是c语言不允许这样写
 // int(*parr[10])();
+
+//转移表
+//利用到函数指针变量  结合来看
+//int (*p)(int x,int y);  类型为 int (*) (int x,int y);
+// int add(int a, int b)
+// {
+//     return a + b;
+// }
+// int sub(int a, int b)
+// {
+//     return a - b;
+// }
+// int mul(int a, int b)
+// {
+//     return a*b;
+// }
+// int div(int a, int b)
+// {
+//     return a / b;
+// }
+// void menu()
+// {
+//     printf("*************************\n");
+//     printf(" 1:add 2:sub \n");
+//     printf(" 3:mul 4:div \n");
+//     printf(" 0:exit \n");
+//     printf("*************************\n");
+//     printf( "请选择：" );
+// }
+// int main()
+// {
+//     int x= 0;
+//     int y = 0;
+//     int input  =1;
+//     int ret =0;
+//     int(*p[5])(int x,int y) = {0,add,sub,mul,div};
+//     do{
+//         menu();
+//         scanf("%d",&input);
+//         if ((input <= 4 && input >= 1))
+//     {
+//         printf( "输⼊操作数：" );
+//         scanf( "%d %d", &x, &y);
+//         ret = (*p[input])(x, y);
+//         printf( "ret = %d\n", ret);
+//     }
+//     else if(input == 0)
+//     {
+//         printf("退出计算器\n");
+//     }
+//     else
+//     {
+//         printf( "输⼊有误\n" );
+//     }
+//     }while (input);
+//     return 0;
+// }
+
+
+    
+
