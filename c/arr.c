@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <windows.h>
-//int arr1[10]
+// int arr1[10]
 //arr1 数组的类型是int [10]
 // int main()
 // {
@@ -10,6 +10,7 @@
 //     for(i=0;i<10;i++)
 //     {
 //         printf("%d ",arr[i]);
+        
         
 //     }
 //     return 0;
