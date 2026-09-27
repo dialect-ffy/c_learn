@@ -36,5 +36,6 @@ HeapDataType HeapTop(Heap* hp);
 int HeapEmpty(Heap*hp);
 //12.获取堆的数据的个数
 int HeapSize(Heap * hp);
+//13.注意 还有一道题是top->k 问题 思路是先去前k个数建小堆  然后对后面的数进行对比 如果有大于堆顶的最小的 替换 AdjustDown  最后剩下的就是top->k个数
 
 

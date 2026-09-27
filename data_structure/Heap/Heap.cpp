@@ -49,24 +49,23 @@ void HeapPush(Heap* hp,HeapDataType x)
 //5.删除后进行向下调整建堆
 void AdjustDown(HeapDataType * a,int n,int parent)
 {
-    assert(a);
-    int child = parent * 2 + 1;
-   
-    while(child < n)
-    {   
-       
-        if(child + 1 < n && a[child+1] < a[child] )
+   assert(a);
+   int child = parent * 2 + 1;
+  
+   while(child < n)//等于n的时候就已经建完了因为下标到n-1
+   {
+        if(child + 1 < n && a[child+1] < a[child])
         child++;
         if(a[child] < a[parent])
         {
-            Swap(&a[child] ,&a[parent]);
-            parent = child;
+            Swap(&a[child],&a[parent]);
+            parent  =child;
             child = parent * 2 + 1;
         }
         else{
             break;
         }
-    }
+   }
 
 
 }
