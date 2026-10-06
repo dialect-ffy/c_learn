@@ -307,84 +307,352 @@ using namespace std;
 
 
 
-typedef int STDataType ;
-class Stack
-{
-public:
-    Stack(int n = 4)
-    {
-        _a = (STDataType *)malloc(sizeof(STDataType) * n);
-        if(nullptr == _a)
-        {
-            perror("malloc申请空间失败");
-            return;
-        }
-        _capacity = n;
-        _top = 0;
-    }
-    Stack(const Stack& st)
-    {
-        //需要创造同样大小的空间
-        _a = (STDataType *)malloc(sizeof(STDataType) * st._capacity);
-        if(nullptr == _a)
-        {
-            perror("malloc 申请空间失败");
-            return ;
-        }
-        memcpy(_a,st._a,sizeof(STDataType) * st._top);
-        _top = st._top;
-        _capacity = st._capacity;
-    }
-    void Push(STDataType x)
-    {
-        if(_top == _capacity)
-        {
-            int newcapacity = _capacity *2;
-            STDataType* tmp = (STDataType*)realloc(_a, newcapacity *sizeof(STDataType));
-            if(tmp == nullptr)
-            {
-                perror("realloc fail");
-                 return;
-            }
-            _a = tmp;
-            _capacity = newcapacity;
-        }
-        _a[_top++] = x;
-    }
-    ~Stack()
-    {
-        cout << "~Stack()" << endl;
-        free(_a);
-        _a = nullptr;
-        _top = _capacity = 0;
-    }
-private:
-    STDataType * _a;
-    size_t _capacity;
-    size_t _top;
-};
+// typedef int STDataType ;
+// class Stack
+// {
+// public:
+//     Stack(int n = 4)
+//     {
+//         _a = (STDataType *)malloc(sizeof(STDataType) * n);
+//         if(nullptr == _a)
+//         {
+//             perror("malloc申请空间失败");
+//             return;
+//         }
+//         _capacity = n;
+//         _top = 0;
+//     }
+//     Stack(const Stack& st)
+//     {
+//         //需要创造同样大小的空间
+//         _a = (STDataType *)malloc(sizeof(STDataType) * st._capacity);
+//         if(nullptr == _a)
+//         {
+//             perror("malloc 申请空间失败");
+//             return ;
+//         }
+//         memcpy(_a,st._a,sizeof(STDataType) * st._top);
+//         _top = st._top;
+//         _capacity = st._capacity;
+//     }
+//     void Push(STDataType x)
+//     {
+//         if(_top == _capacity)
+//         {
+//             int newcapacity = _capacity *2;
+//             STDataType* tmp = (STDataType*)realloc(_a, newcapacity *sizeof(STDataType));
+//             if(tmp == nullptr)
+//             {
+//                 perror("realloc fail");
+//                  return;
+//             }
+//             _a = tmp;
+//             _capacity = newcapacity;
+//         }
+//         _a[_top++] = x;
+//     }
+//     ~Stack()
+//     {
+//         cout << "~Stack()" << endl;
+//         free(_a);
+//         _a = nullptr;
+//         _top = _capacity = 0;
+//     }
+// private:
+//     STDataType * _a;
+//     size_t _capacity;
+//     size_t _top;
+// };
 
-//两个Stack 实现队列
-class MyQueue
-{
-public:
+// //两个Stack 实现队列
+// class MyQueue
+// {
+// public:
    
    
-private:
-    Stack pushst;
-    Stack popst;
+// private:
+//     Stack pushst;
+//     Stack popst;
     
-};
+// };
 
-int main()
-{
-    Stack st1;
-    st1.Push(1);
-    st1.Push(2);
-    Stack st2 = st1;
-    MyQueue mq1;
-    // MyQueue⾃动⽣成的拷⻉构造，会⾃动调⽤Stack拷⻉构造完成pushst/popst
-    // 的拷⻉，只要Stack拷⻉构造⾃⼰实现了深拷⻉，他就没问题
-    MyQueue mq2 = mq1;
-    return 0;
-}
+// int main()
+// {
+//     Stack st1;
+//     st1.Push(1);
+//     st1.Push(2);
+//     Stack st2 = st1;
+//     MyQueue mq1;
+//     // MyQueue⾃动⽣成的拷⻉构造，会⾃动调⽤Stack拷⻉构造完成pushst/popst
+//     // 的拷⻉，只要Stack拷⻉构造⾃⼰实现了深拷⻉，他就没问题
+//     MyQueue mq2 = mq1;
+//     return 0;
+// }
+// mq2.popst  → ~Stack()
+// mq2.pushst → ~Stack()
+// mq1.popst  → ~Stack()
+// mq1.pushst → ~Stack()
+// st2       → ~Stack()
+// st1       → ~Stack()
+
+
+//运算符重载
+//1 运算符重载是具有特殊名字的函数，他的名字是由operator和后⾯要定义的运算符共同构成。和其
+//他函数⼀样，它也具有其返回类型和参数列表以及函数体。
+//2 重载运算符函数的参数个数和该运算符作⽤的运算对象数量⼀样多。⼀元运算符有⼀个参数，⼆元
+//运算符有两个参数，⼆元运算符的左侧运算对象传给第⼀个参数，右侧运算对象传给第⼆个参数。
+//3 如果⼀个重载运算符函数是成员函数，则它的第⼀个运算对象默认传给隐式的this指针，因此运算
+//符重载作为成员函数时，参数⽐运算对象少⼀个。
+//4 运算符重载以后，其优先级和结合性与对应的内置类型运算符保持⼀致
+//5 不能通过连接语法中没有的符号来创建新的操作符：⽐如operator@。
+//6.* :: sizeof ?: .  不可以进行重载
+//7.重载 操作符⾄少有⼀个类类型参数，
+//8.重载++运算符时，有前置++和后置++，运算符重载函数名都是operator++，⽆法很好的区分。
+//C++规定，后置++重载时，增加⼀个int形参，跟前置++构成函数重载，⽅便区分。
+ // 9.重载<<和>>时，需要重载为全局函数，因为重载为成员函数，this指针默认抢占了第⼀个形参位
+// 置，第⼀个形参位置是左侧运算对象，调⽤时就变成了 对象<<cout，不符合使⽤习惯和可读性。
+// 重载为全局函数把ostream/istream放到第⼀个形参位置就可以了，第⼆个形参位置当类类型对
+// 象。
+// Date& Date::operator += (int day){
+//     _day += day;
+//     while(_day > GetMonthDay(_year,_month)){
+//         _day -= GetMonthDay(_year,_month);
+//         ++_month;
+//         if(_month == 13)
+//         {
+//             ++_year;
+//             _month = 1;
+//         }
+//     }
+//     return *this;
+// }
+// Date Date::operator + (int day)
+// {
+//     Date tmp = *this;
+//     tmp += day;
+//     return tmp;
+// }
+
+
+//成员函数指针用法
+// class A
+// {
+// public:
+//     void func()
+//     {
+//         cout <<"A::func()" <<endl;
+//     }
+// };
+// typedef void (A::*PF)();
+// int main()
+// {
+//     PF pf = &A::func;
+//     A obj;
+//     (obj.*pf)();
+// }
+
+
+
+
+
+// 重载为全局的⾯临对象访问私有成员变量的问题
+ // 有⼏种⽅法可以解决：
+ // 1、成员放公有
+ // 2、Date提供getxxx函数
+ // 3、友元函数
+ // 4、重载为成员函数
+// class Date
+// {
+// public:
+//     Date(int year = 1,int month = 1,int day = 1)
+//     {
+//         _year = year;
+//         _month = month;
+//         _day = day;
+//     }
+//     Date(const Date& d)  //用指针也可以  拷贝构造
+//     {
+//         _year = d._year;
+//         _month = d._month;
+//         _day = d._day;
+//     }
+   
+//     void Print()
+//     {
+//         cout << _year << "/" << _month <<"/" <<_day <<endl;
+//     }
+// // private:
+//     int _year;
+//     int _month;
+//     int _day;
+
+// };
+//  bool operator == (const Date& d1,const Date&d2)
+//  {
+//     return d1._year == d2._year
+//     && d1._month == d2._month
+//     && d1._day == d2._day;
+//  }
+//  int main()
+//  {
+//     Date d1(2024,7,5);
+//     Date d2(2024,7,6);
+//     operator==(d1,d2);
+//     d1 == d2;
+//     return 0;
+//  }
+
+//写在里面
+//  class Date
+// {
+// public:
+//     Date(int year = 1,int month = 1,int day = 1)
+//     {
+//         _year = year;
+//         _month = month;
+//         _day = day;
+//     }
+//     Date(const Date& d)  //用指针也可以  拷贝构造
+//     {
+//         _year = d._year;
+//         _month = d._month;
+//         _day = d._day;
+//     }
+   
+//     void Print()
+//     {
+//         cout << _year << "/" << _month <<"/" <<_day <<endl;
+//     }
+//     bool operator==(const Date& d)
+//     {
+//         return _year == d._year
+//         && _month == d._month
+//         && _day == d._day;
+//     }
+//     Date & operator++()
+//     {
+//         cout <<"前置++" << endl;
+//         //...
+//         return *this;
+//     }
+//     Date operator++(int)
+//     {
+//         Date tmp;
+//         cout <<"后置++" << endl;
+//         //....
+//         return tmp;
+//     }
+// private:
+//     int _year;
+//     int _month;
+//     int _day;
+
+// };
+
+
+
+
+//赋值运算符重载
+//赋值运算符重载是⼀个默认成员函数，⽤于完成两个已经存在的对象直接的拷⻉赋值
+//1. 赋值运算符重载是⼀个运算符重载，规定必须重载为成员函数。赋值运算重载的参数建议写成
+//const 当前类类型引⽤，否则会传值传参会有拷⻉
+
+//2. 有返回值，且建议写成当前类类型引⽤，引⽤返回可以提⾼效率，有返回值⽬的是为了⽀持连续赋
+//值场景没有显式实现时，编译器会⾃动⽣成⼀个默认赋值运算符重载，默认赋值运算符重载⾏为跟默认拷
+// ⻉构造函数类似，对内置类型成员变量会完成值拷⻉/浅拷⻉(⼀个字节⼀个字节的拷⻉)，对⾃定义
+// 类型成员变量会调⽤他的赋值重载函数。
+
+//4. 像Date这样的类成员变量全是内置类型且没有指向什么资源，编译器⾃动⽣成的赋值运算符重载就
+// 可以完成需要的拷⻉，所以不需要我们显⽰实现赋值运算符重载。像Stack这样的类，虽然也都是
+// 内置类型，但是_a指向了资源，编译器⾃动⽣成的赋值运算符重载完成的值拷⻉/浅拷⻉不符合我
+// 们的需求，所以需要我们⾃⼰实现深拷⻉(对指向的资源也进⾏拷⻉)。像MyQueue这样的类型内部
+// 主要是⾃定义类型Stack成员，编译器⾃动⽣成的赋值运算符重载会调⽤Stack的赋值运算符重载，
+// 也不需要我们显⽰实现MyQueue的赋值运算符重载。这⾥还有⼀个⼩技巧，如果⼀个类显⽰实现
+// 了析构并释放资源，那么他就需要显⽰写赋值运算符重载，否则就不需要。
+
+
+//  class Date
+// {
+// public:
+//     Date(int year = 1,int month = 1,int day = 1)
+//     {
+//         _year = year;
+//         _month = month;
+//         _day = day;
+//     }
+//     Date(const Date& d)  //用指针也可以  拷贝构造
+//     {
+//         _year = d._year;
+//         _month = d._month;
+//         _day = d._day;
+//     }
+   
+//     void Print()
+//     {
+//         cout << _year << "/" << _month <<"/" <<_day <<endl;
+//     }
+//    Date& operator=(const Date& d)
+//    {
+//         //不要自己给自己赋值
+//         if(*this != d)
+//         {
+//             _year = d._year;
+//             _month = d._month;
+//             _day = d._day;
+//         }
+//         return *this;
+//    }
+// private:
+//     int _year;
+//     int _month;
+//     int _day;
+
+// };
+// int main()
+// {
+//     Date d1(2024,7,5);
+//     Date d2(d1);
+//     Date d3(2024,5,6);
+//     d1 = d3;  //赋值运算符重载
+//     Date d4 = d1; //拷贝构造
+// }
+
+
+
+//const 成员函数
+// 将const修饰的成员函数称之为const成员函数，const修饰成员函数放到成员函数参数列表的后
+// ⾯。
+
+// const实际修饰该成员函数隐含的this指针，表明在该成员函数中不能对类的任何成员进⾏修改。
+// const 修饰Date类的Print成员函数，Print隐含的this指针由 Date* const this 变为 const
+// Date* const this
+
+// class Date
+// {
+//     // void Print(const Date* const this) const
+//     void Print() const{
+//         cout << _year << " " << _month << "-" << _day << endl;
+//     }  //承诺不修改成员变量   可以调用 const 对象
+// };
+
+//取地址运算符重载
+//取地址运算符重载分为普通取地址运算符重载和const取地址运算符重载
+//⼀般这两个函数编译器⾃动⽣成的就可以够我们⽤了，
+// 不需要去显⽰实现。
+// 除⾮⼀些很特殊的场景，
+// ⽐如我们不想让别⼈取到当前类对象的地址，
+// 就可以⾃⼰实现⼀份，胡乱返回⼀个地址。
+// class Date
+// {
+// public:
+//     Date* operator&()
+//     {
+//         return this;
+//         //return nullptr;
+//     }
+//     const Date* operator&() const
+//     {
+//         return this;
+//         //return nullptr
+//     }
+// };

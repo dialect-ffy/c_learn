@@ -89,7 +89,7 @@ void Heapsort(int * a ,int n)
         AdjustDown(a,n,i);//向下调整排序 parent
     }
     //接下来进行排序
-    int j = 0;
+    int j = 1;
     //升序排列建大根堆 每次都把最大的放到了最后面 
     while(j<n)
     {

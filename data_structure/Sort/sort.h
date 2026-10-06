@@ -6,4 +6,8 @@ void InsertSort(int*a,int n);
 //3.希尔排序
 //Tips： 即先进行间隔为d 的预排序 再进行插入排序 效果更好一点
 void ShellSort(int *a ,int n);
-
+void Swap(int *x , int * y);
+void AdjustDown(int *a , int n,int parent);
+void Heapsort(int * a,int n);
+void MergeSort(int * a,int n);
+void CountSort(int * a,int n);

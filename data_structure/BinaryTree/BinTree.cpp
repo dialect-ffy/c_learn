@@ -64,17 +64,17 @@ void Levelorder(BTNode* root)
     int levelsize = 1;
     while(rear - front !=0)  // rear - front 时队列中的数据个数
     {
-        while(level--)
+        while(levelsize--)
         {
             BTNode * frontNode = queueArr[front++];
-            printf("%c ",frontNode->data);
+            printf("%c ",frontNode->val);
             if(frontNode->left)
             queueArr[rear++] = frontNode->left;
             if(frontNode->right)
             queueArr[rear++] = frontNode->right;
         }
         printf("\n");
-        level = rear - front;
+        levelsize= rear - front;
     }
     printf("\n");
     free(queueArr);
