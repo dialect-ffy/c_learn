@@ -88,45 +88,45 @@ using namespace std;
 
 
 
-// typedef int STDataType ;
-// class Stack
-// {
-// public:
-//     Stack(int n = 4)
-//     {
-//         _a = (STDataType *)malloc(sizeof(STDataType) * n);
-//         if(nullptr == _a)
-//         {
-//             perror("malloc申请空间失败");
-//             return;
-//         }
-//         _capacity = n;
-//         _top = 0;
-//     }
-//     //.....其他功能
-// private:
-//     STDataType * _a;
-//     size_t _capacity;
-//     size_t _top;
-// };
+typedef int STDataType ;
+class Stack
+{
+public:
+    Stack(int n = 4)
+    {
+        _a = (STDataType *)malloc(sizeof(STDataType) * n);
+        if(nullptr == _a)
+        {
+            perror("malloc申请空间失败");
+            return;
+        }
+        _capacity = n;
+        _top = 0;
+    }
+    //.....其他功能
+private:
+    STDataType * _a;
+    size_t _capacity;
+    size_t _top;
+};
 
 
-// //两个Stack 实现队列
-// class MyQueue
-// {
-// public:
-//     //编译器默认生成的MyQueue的构造函数 调用了Stack 的构造 完成了两个成员的初始化
-// private:
-//     Stack pushst;
-//     Stack popst;
-// };
-// //创建 MyQueue q; 时，编译器生成的默认构造函数会自动调用两次 Stack 的默认构造函数，分别初始化 pushst 和 popst。
-// //因此，如果没有其他初始化工作，就不用自己写 MyQueue 的构造函数。
-// int main()
-// {
-//     MyQueue mq;
-//     return 0;
-// }
+//两个Stack 实现队列
+class MyQueue
+{
+public:
+    //编译器默认生成的MyQueue的构造函数 调用了Stack 的构造 完成了两个成员的初始化
+private:
+    Stack pushst;
+    Stack popst;
+};
+//创建 MyQueue q; 时，编译器生成的默认构造函数会自动调用两次 Stack 的默认构造函数，分别初始化 pushst 和 popst。
+//因此，如果没有其他初始化工作，就不用自己写 MyQueue 的构造函数。
+int main()
+{
+    MyQueue mq;
+    return 0;
+}
 
 
 
@@ -145,52 +145,52 @@ using namespace std;
 //⾃⼰写析构，否则会造成资源泄漏，如Stack。
 //如果资源是通过裸指针用 new 或 malloc 申请的，编译器生成的析构函数不会自动释放它。
 //⼀个局部域的多个对象，C++规定后定义的先析构。
-// typedef int STDataType ;
-// class Stack
-// {
-// public:
-//     Stack(int n = 4)
-//     {
-//         _a = (STDataType *)malloc(sizeof(STDataType) * n);
-//         if(nullptr == _a)
-//         {
-//             perror("malloc申请空间失败");
-//             return;
-//         }
-//         _capacity = n;
-//         _top = 0;
-//     }
-//     ~Stack()
-//     {
-//         cout << "~Stack()" << endl;
-//         free(_a);
-//         _a = nullptr;
-//         _top = _capacity = 0;
-//     }
-// private:
-//     STDataType * _a;
-//     size_t _capacity;
-//     size_t _top;
-// };
+typedef int STDataType ;
+class Stack
+{
+public:
+    Stack(int n = 4)
+    {
+        _a = (STDataType *)malloc(sizeof(STDataType) * n);
+        if(nullptr == _a)
+        {
+            perror("malloc申请空间失败");
+            return;
+        }
+        _capacity = n;
+        _top = 0;
+    }
+    ~Stack()
+    {
+        cout << "~Stack()" << endl;
+        free(_a);
+        _a = nullptr;
+        _top = _capacity = 0;
+    }
+private:
+    STDataType * _a;
+    size_t _capacity;
+    size_t _top;
+};
 
-// //两个Stack 实现队列
-// class MyQueue
-// {
-// public:
-//     //编译器默认生成的MyQueue的构造函数 调用了Stack 的构造 完成了两个成员的初始化
-//     //编译器默认⽣成MyQueue的析构函数调⽤了Stack的析构，释放的Stack内部的资源
-//     ~MyQueue(){} //显⽰写析构，也会⾃动调⽤Stack的析构
-// private:
-//     Stack pushst;
-//     Stack popst;
+//两个Stack 实现队列
+class MyQueue
+{
+public:
+    //编译器默认生成的MyQueue的构造函数 调用了Stack 的构造 完成了两个成员的初始化
+    //编译器默认⽣成MyQueue的析构函数调⽤了Stack的析构，释放的Stack内部的资源
+    ~MyQueue(){} //显⽰写析构，也会⾃动调⽤Stack的析构
+private:
+    Stack pushst;
+    Stack popst;
     
-// };
+};
 
-// int main()
-// {
-//     MyQueue mq;
-//     return 0;
-// }
+int main()
+{
+    MyQueue mq;
+    return 0;
+}
 
 
 //拷贝构造函数
@@ -434,120 +434,120 @@ using namespace std;
 // }
 
 
-//成员函数指针用法
-// class A
-// {
-// public:
-//     void func()
-//     {
-//         cout <<"A::func()" <<endl;
-//     }
-// };
-// typedef void (A::*PF)();
-// int main()
-// {
-//     PF pf = &A::func;
-//     A obj;
-//     (obj.*pf)();
-// }
+成员函数指针用法
+class A
+{
+public:
+    void func()
+    {
+        cout <<"A::func()" <<endl;
+    }
+};
+typedef void (A::*PF)();
+int main()
+{
+    PF pf = &A::func;
+    A obj;
+    (obj.*pf)();
+}
 
 
 
 
 
-// 重载为全局的⾯临对象访问私有成员变量的问题
- // 有⼏种⽅法可以解决：
- // 1、成员放公有
- // 2、Date提供getxxx函数
- // 3、友元函数
- // 4、重载为成员函数
-// class Date
-// {
-// public:
-//     Date(int year = 1,int month = 1,int day = 1)
-//     {
-//         _year = year;
-//         _month = month;
-//         _day = day;
-//     }
-//     Date(const Date& d)  //用指针也可以  拷贝构造
-//     {
-//         _year = d._year;
-//         _month = d._month;
-//         _day = d._day;
-//     }
+重载为全局的⾯临对象访问私有成员变量的问题
+ 有⼏种⽅法可以解决：
+ 1、成员放公有
+ 2、Date提供getxxx函数
+ 3、友元函数
+ 4、重载为成员函数
+class Date
+{
+public:
+    Date(int year = 1,int month = 1,int day = 1)
+    {
+        _year = year;
+        _month = month;
+        _day = day;
+    }
+    Date(const Date& d)  //用指针也可以  拷贝构造
+    {
+        _year = d._year;
+        _month = d._month;
+        _day = d._day;
+    }
    
-//     void Print()
-//     {
-//         cout << _year << "/" << _month <<"/" <<_day <<endl;
-//     }
-// // private:
-//     int _year;
-//     int _month;
-//     int _day;
-
-// };
-//  bool operator == (const Date& d1,const Date&d2)
-//  {
-//     return d1._year == d2._year
-//     && d1._month == d2._month
-//     && d1._day == d2._day;
-//  }
-//  int main()
-//  {
-//     Date d1(2024,7,5);
-//     Date d2(2024,7,6);
-//     operator==(d1,d2);
-//     d1 == d2;
-//     return 0;
-//  }
-
-//写在里面
-//  class Date
-// {
-// public:
-//     Date(int year = 1,int month = 1,int day = 1)
-//     {
-//         _year = year;
-//         _month = month;
-//         _day = day;
-//     }
-//     Date(const Date& d)  //用指针也可以  拷贝构造
-//     {
-//         _year = d._year;
-//         _month = d._month;
-//         _day = d._day;
-//     }
-   
-//     void Print()
-//     {
-//         cout << _year << "/" << _month <<"/" <<_day <<endl;
-//     }
-//     bool operator==(const Date& d)
-//     {
-//         return _year == d._year
-//         && _month == d._month
-//         && _day == d._day;
-//     }
-//     Date & operator++()
-//     {
-//         cout <<"前置++" << endl;
-//         //...
-//         return *this;
-//     }
-//     Date operator++(int)
-//     {
-//         Date tmp;
-//         cout <<"后置++" << endl;
-//         //....
-//         return tmp;
-//     }
+    void Print()
+    {
+        cout << _year << "/" << _month <<"/" <<_day <<endl;
+    }
 // private:
-//     int _year;
-//     int _month;
-//     int _day;
+    int _year;
+    int _month;
+    int _day;
 
-// };
+};
+ bool operator == (const Date& d1,const Date&d2)
+ {
+    return d1._year == d2._year
+    && d1._month == d2._month
+    && d1._day == d2._day;
+ }
+ int main()
+ {
+    Date d1(2024,7,5);
+    Date d2(2024,7,6);
+    operator==(d1,d2);
+    d1 == d2;
+    return 0;
+ }
+
+写在里面
+ class Date
+{
+public:
+    Date(int year = 1,int month = 1,int day = 1)
+    {
+        _year = year;
+        _month = month;
+        _day = day;
+    }
+    Date(const Date& d)  //用指针也可以  拷贝构造
+    {
+        _year = d._year;
+        _month = d._month;
+        _day = d._day;
+    }
+   
+    void Print()
+    {
+        cout << _year << "/" << _month <<"/" <<_day <<endl;
+    }
+    bool operator==(const Date& d)
+    {
+        return _year == d._year
+        && _month == d._month
+        && _day == d._day;
+    }
+    Date & operator++()
+    {
+        cout <<"前置++" << endl;
+        //...
+        return *this;
+    }
+    Date operator++(int)
+    {
+        Date tmp;
+        cout <<"后置++" << endl;
+        //....
+        return tmp;
+    }
+private:
+    int _year;
+    int _month;
+    int _day;
+
+};
 
 
 
