@@ -1,13 +1,13 @@
-// #include "string.h"
+#include "string.h"
 
-// int main() {
-//     bit::string s("hello");
+int main() {
+    bit::string s("hello");
 
-//     bit::getline(cin, s);
-//     cout << s << endl;
+    bit::getline(cin, s);
+    cout << s << endl;
 
-//     return 0;
-// }
+    return 0;
+}
 // #include "string.h"
 
 // int main() {
@@ -247,26 +247,26 @@
 //     return 0;
 // }
 
-#include "string.h"
+// #include "string.h"
 
-int main() {
-    bit::string a("abc");
-    bit::string b("abc");
-    bit::string c("abd");
+// int main() {
+//     bit::string a("abc");
+//     bit::string b("abc");
+//     bit::string c("abd");
 
-    cout << boolalpha;  // 把布尔值显示为 true、false
+//     cout << boolalpha;  // 把布尔值显示为 true、false
 
-    cout << "相等时：" << endl;
-    cout << "a == b: " << (a == b) << endl;
-    cout << "a != b: " << (a != b) << endl;
-    cout << "a <  b: " << (a < b) << endl;
-    cout << "a >  b: " << (a > b) << endl;
-    cout << "a <= b: " << (a <= b) << endl;
-    cout << "a >= b: " << (a >= b) << endl;
+//     cout << "相等时：" << endl;
+//     cout << "a == b: " << (a == b) << endl;
+//     cout << "a != b: " << (a != b) << endl;
+//     cout << "a <  b: " << (a < b) << endl;
+//     cout << "a >  b: " << (a > b) << endl;
+//     cout << "a <= b: " << (a <= b) << endl;
+//     cout << "a >= b: " << (a >= b) << endl;
 
-    cout << "不相等时：" << endl;
-    cout << "a < c: " << (a < c) << endl;
-    cout << "c > a: " << (c > a) << endl;
+//     cout << "不相等时：" << endl;
+//     cout << "a < c: " << (a < c) << endl;
+//     cout << "c > a: " << (c > a) << endl;
 
-    return 0;
-}
+//     return 0;
+// }

@@ -1,4 +1,5 @@
 #include "string.h"
+#include <locale>
 namespace bit{
     string::string()
         :_str(new char[1])
@@ -20,26 +21,39 @@ namespace bit{
             _str= new char[_size + 1];
             strcpy(_str,str);
         }
-    string:: string(const string& s)
-        :_str(new char[s._capacity + 1])
-        ,_size(s._size)
-        ,_capacity(s._capacity)
-        {
-            cout << "string::string(const string& s)" << endl;
-            strcpy(_str,s._str);
-        }
-    string& string::operator=(const string& s)
-     {
+        //赋值拷贝传统写法
+    // string:: string(const string& s)
+    //     :_str(new char[s._capacity + 1])
+    //     ,_size(s._size)
+    //     ,_capacity(s._capacity)
+    //     {
+    //         cout << "string::string(const string& s)" << endl;
+    //         strcpy(_str,s._str);
+    //     }
+     // 现代写法 ： 让别人干活 自己拿过来
+    string::string(const string& s){
+        string tmp(s._str);
+        swap(tmp);
+    }  //结束后tmp 自动析构
+    // string& string::operator=(const string& s)
+    //  {
+    //     if(this != &s){
+    //         cout << "string& string::operator=(const stirng& s)" << endl;
+    //         delete[] _str;
+    //         _str = new char[s._capacity + 1];
+    //         strcpy(_str,s._str);
+    //         _size = s._size;
+    //         _capacity = s._capacity;
+    //     }
+    //     return *this;
+    //  }
+    string& string::operator= (const string& s){
         if(this != &s){
-            cout << "string& string::operator=(const stirng& s)" << endl;
-            delete[] _str;
-            _str = new char[s._capacity + 1];
-            strcpy(_str,s._str);
-            _size = s._size;
-            _capacity = s._capacity;
+            string tmp(s);
+            swap(tmp);
         }
         return *this;
-     }
+    }//结束tmp 自动析构
     void string::reserve(size_t n )
      {
         if(n > _capacity){
@@ -54,7 +68,7 @@ namespace bit{
      {
         if(_size == _capacity)
         {
-            reserve(_capacity == 0 ? 4 : _capacity *= 2);
+            reserve(_capacity == 0 ? 4 : _capacity * 2);
         }
         _str[_size] = ch;
         ++_size;
@@ -228,24 +242,64 @@ namespace bit{
         }
         return out;
     }
-    istream& operator >> (istream &in,string &s)
-    //输入要修改字符串
-    {
-        char ch;
-        while(in.get(ch) && ch != ' ' && ch != '\n'){
-             s += ch;
-        }
-        return in;
-    }
-    istream& getline(istream& in, string & s)
-    {
-        char ch;
-        while(in.get(ch) && ch != '\n')
-        {
-            s += ch;
-        }
-        return in;
-    }
+   istream& operator>>(istream& in, string& s) {
+		s.erase();
+
+		char ch;
+		//in >> ch;
+		ch = in.get();
+		char buff[128];
+		int i = 0;
+
+		while (ch != ' ' && ch != '\n'){
+			buff[i++] = ch;
+			// buff满了
+			if (i == 127) {
+				buff[i] = '\0';
+				s += buff;
+				i = 0;
+			}
+
+			ch = in.get();
+		}
+
+		if (i > 0) {
+			buff[i] = '\0';
+			s += buff;
+		}
+
+		return in;
+	}
+
+	istream& getline(istream& in, string& s, char delim) {
+		s.erase();
+
+		char ch;
+		//in >> ch;
+		ch = in.get();
+		char buff[128];
+		int i = 0;
+
+		while (ch != delim) {
+			buff[i++] = ch;
+			// buff满了
+			if (i == 127) {
+				buff[i] = '\0';
+				s += buff;
+				i = 0;
+			}
+
+			ch = in.get();
+		}
+
+		if (i > 0) {
+			buff[i] = '\0';
+			s += buff;
+		}
+
+		return in;
+	}
+
     
 
 }

@@ -68,7 +68,7 @@ namespace bit{
     bool operator >= (const string&lhs , const string & rhs);
     ostream& operator<<(ostream& out , const string& s);
     istream& operator >> (istream &in,string &s);
-    istream& getline(istream& in, string & s);
+    istream& getline(istream& in, string & s, char delim = '\n');
 
 
 }
