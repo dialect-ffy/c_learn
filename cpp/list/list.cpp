@@ -97,6 +97,7 @@ void test4(){
     while(it1 != lt1.end()){
       cout << (*it1).row << " :" <<(*it1).col << " ";
       cout << it1->row << " :" <<it1->col << " ";
+      cout << it1.operator->()->row<< " "; //省略了一个箭头 为了可读性
         ++it1;
     }cout << endl;
     
