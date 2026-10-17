@@ -9,21 +9,17 @@ namespace bit {
     class priority_queue{
     public:
         priority_queue(){}
-       template <class InputIterator>
-        priority_queue(InputIterator first, InputIterator last) {
-    // 将区间中的元素放入底层容器
-        while (first != last) {
-            _con.push_back(*first);
-            ++first;
-        }
-
-        // 从最后一个非叶子节点开始，向下调整建堆
-        for (int parent = static_cast<int>(_con.size() / 2) - 1;
-            parent >= 0;
-            --parent) {
-            adjust_down(parent);
-        }
-    }
+        template <class Inputlterator>
+        priority_queue(Inputlterator first , Inputlterator last)
+            :_con(first,last)
+            {
+                //建堆
+                for(int i =( _con.size() - 1 -1) / 2 ; i >= 0 ; i --){
+                    adjust_down(i);
+                } 
+            }
+        
+        
         void adjust_up(int child){
             int parent = (child - 1) / 2;
             while(child > 0){
